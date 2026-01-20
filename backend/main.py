@@ -4,12 +4,19 @@ import cv2
 import numpy as np
 from PIL import Image
 import io
+import os
 
 app = FastAPI()
 
+# Get allowed origins from environment variable, or use defaults
+allowed_origins = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://localhost:5174,http://localhost:5175,https://dheeraj-del-cyber.github.io"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

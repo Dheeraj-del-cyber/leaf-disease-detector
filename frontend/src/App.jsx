@@ -1,6 +1,9 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+
+// Get API URL from environment variable, fallback to localhost for development
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 function App() {
   return (
@@ -47,7 +50,7 @@ function DetectionPage() {
     formData.append('file', file)
 
     try {
-      const response = await fetch('http://localhost:8000/detect', {
+      const response = await fetch(`${API_URL}/detect`, {
         method: 'POST',
         body: formData,
       })
